@@ -9,14 +9,22 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 // app.use(cors());
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://time-capsule-frontend.vercel.app'], // Adicione seu frontend da Vercel
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Permite qualquer origem
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).json({});
+  }
+
+  next();
+});
 
 app.use(bodyParser.json());
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI, {
+  serverSelectionTimeoutMS: 5000,
+});
 
 // Routes
 // const capsuleRoutes = require('./routes/capsuleRoutes');
