@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI);
 
 // Routes
 // const capsuleRoutes = require('./routes/capsuleRoutes');
-const authRoutes = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoute');
 // app.use('/api/capsules', capsuleRoutes);
 app.use('/api/auth', authRoutes);
 
