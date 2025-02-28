@@ -12,9 +12,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-// const capsuleRoutes = require('./routes/capsuleRoutes');
+const capsuleRoutes = require('./routes/capsule');
 const authRoutes = require('./routes/authRoute');
-// app.use('/api/capsules', capsuleRoutes);
+app.use('/api/capsules', capsuleRoutes);
 app.use('/api/auth', authRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
