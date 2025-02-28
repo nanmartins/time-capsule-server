@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
-const capsuleRoutes = require('./routes/capsule');
+const capsuleRoutes = require('./routes/capsules');
 const authRoutes = require('./routes/authRoute');
 app.use('/api/capsules', capsuleRoutes);
 app.use('/api/auth', authRoutes);
