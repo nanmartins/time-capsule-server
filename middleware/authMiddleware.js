@@ -24,15 +24,14 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    // Remover "Bearer " do token antes de verificar
     const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
 
-    // Verificar se o token contém o `id`
+    // Verify if the `id` is present
     if (!decoded.id) {
       return res.status(401).json({ error: "Invalid token: user ID missing" });
     }
 
-    // Adicionar o `id` no objeto `req.user`
+    // Add the user ID to the request
     req.user = { id: decoded.id };
 
     next();
