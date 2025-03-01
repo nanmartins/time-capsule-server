@@ -37,7 +37,7 @@ router.post("/create", authenticate, upload.single("image"), async (req, res) =>
     res.status(201).json({ message: "Capsule created successfully", capsule: newCapsule });
 
   } catch (error) {
-    res.status(500).json({ error: "Error creating capsule." });
+    res.status(500).json({ error: "Error creating capsule. From server!!!" });
   }
 });
 
