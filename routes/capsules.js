@@ -41,30 +41,31 @@ router.post("/create", authenticate, upload.single("image"), async (req, res) =>
   }
 });
 
+// Get capsules available to view
+router.get("/available", authenticate, async (req, res) => {
+  try {
+    const capsules = await Capsule.find({
+      userId: req.user.id,
+      // Only show capsules that are open
+      openAt: { $lte: new Date() },
+    });
 
-// Search for capsules avaialable to view
-// router.get("/", authenticate, async (req, res) => {
-//   try {
-//     const capsules = await Capsule.find({
-//       userId: req.user.id,
-//       openAt: { $lte: new Date() }
-//     });
+    res.status(200).json(capsules);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching capsules. Please try again." });
+  }
+});
 
-//     res.status(200).json(capsules);
-//   } catch (error) {
-//     res.status(500).json({ error: "Error fetching capsules." });
-//   }
-// });
+// Get all capsules (including closed ones)
+router.get("/all", authenticate, async (req, res) => {
+  try {
+    const capsules = await Capsule.find({ userId: req.user.id });
 
-// Search for all capsules, including closed ones
-// router.get("/all", authenticate, async (req, res) => {
-//   try {
-//     const capsules = await Capsule.find({ userId: req.user.id });
+    res.status(200).json(capsules);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching capsules. Please try again." });
+  }
+});
 
-//     res.status(200).json(capsules);
-//   } catch (error) {
-//     res.status(500).json({ error: "Error fetching capsules." });
-//   }
-// });
 
 module.exports = router;
