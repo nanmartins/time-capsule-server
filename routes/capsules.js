@@ -81,6 +81,20 @@ router.get("/all", authenticate, async (req, res) => {
   }
 });
 
+// Get capsule details by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const capsule = await Capsule.findById(req.params.id);
 
+    if (!capsule) {
+      return res.status(404).json({ message: "Capsule not found" });
+    }
+
+    res.json(capsule);
+  } catch (error) {
+    console.error("Error fetching capsule details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;
