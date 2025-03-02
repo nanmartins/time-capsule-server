@@ -28,7 +28,8 @@ router.post("/create", authenticate, upload.single("image"), async (req, res) =>
 
     const newCapsule = new Capsule({
       userId: req.user.id,
-      text,
+      title,
+      message,
       imageUrl,
       openAt,
     });

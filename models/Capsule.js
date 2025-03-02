@@ -6,7 +6,8 @@ const CapsuleSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  text: { type: String, required: true },
+  title: { type: String, required: true },
+  message: { type: String, required: true },
   imageUrl: { type: String },
   openAt: { type: Date, required: true },
   createdAt: { type: Date, default: Date.now },
