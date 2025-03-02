@@ -12,10 +12,10 @@ const upload = multer({ storage });
 // Create a new capsule
 router.post("/create", authenticate, upload.single("image"), async (req, res) => {
   try {
-    const { text, openAt } = req.body;
+    const { title, message, openAt } = req.body;
 
-    if (!text || !openAt) {
-      return res.status(400).json({ error: "Text and open date are required" });
+    if (!title || !message || !openAt) {
+      return res.status(400).json({ error: "Title, message and open date are required" });
     }
 
     let imageUrl = null;
