@@ -98,4 +98,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Delete a capsule
+
+
 module.exports = router;
