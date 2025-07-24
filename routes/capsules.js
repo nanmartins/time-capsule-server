@@ -99,6 +99,25 @@ router.get("/:id", async (req, res) => {
 });
 
 // Delete a capsule
+router.delete("/:id", authenticate, async (req, res) => {
+  try {
+    const capsule = await Capsule.findById(req.params.id);
 
+    if(!capsule) {
+      return res.status(404).json({ message: "Capsule not found" });
+    }
+
+    // Check if the user is authorized to delete the capsule
+    if (capsule.userId.toString() !== req.user.id) {
+      return res.status(403).json({ message: "You are not authorized to delete this capsule" });
+    }
+
+    await capsule.deleteOne();
+    res.status(200).json({ message: "Capsule deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting capsule:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+})
 
 module.exports = router;
