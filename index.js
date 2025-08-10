@@ -14,8 +14,10 @@ app.use(bodyParser.json());
 // Routes
 const capsuleRoutes = require('./routes/capsules');
 const authRoutes = require('./routes/authRoute');
+const statsRoutes = require('./routes/statsRoute');
 app.use('/api/capsules', capsuleRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/stats', statsRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 
